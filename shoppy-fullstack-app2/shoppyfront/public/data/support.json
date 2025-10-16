@@ -1,0 +1,85 @@
+{
+    "categorys":[
+        {"value":"title", "name":"제목"},
+        {"value":"content", "name":"내용"},
+        {"value":"cdate", "name":"날짜"}
+    ],
+
+    "menus":[
+        {"href":"#", "type":"all", "menuName":"전체", "style":"filter-menu" },
+        {"href":"#", "type":"system", "menuName":"시스템점검", "style":"filter-menu" },
+        {"href":"#", "type":"theater", "menuName":"극장", "style":"filter-menu" },
+        {"href":"#", "type":"event", "menuName":"행사/이벤트", "style":"filter-menu" },
+        {"href":"#", "type":"partner", "menuName":"제휴이벤트", "style":"filter-menu" },
+        {"href":"#", "type":"etc", "menuName":"기타", "style":"filter-menu" }
+    ],
+
+    "list" : [
+        {
+            "type":"system",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"event",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"event",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"event",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"event",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"theater",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"theater",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"theater",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"partner",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"partner",
+            "title":"iOS 18 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2024.09.13",
+            "hits":"118691"
+        },
+        {
+            "type":"etc",
+            "title":"android 업데이트 관련 예매 서비스 이용안내",
+            "rdate":"2025.05.13",
+            "hits":"21546"
+        }
+    ]
+}

@@ -29,8 +29,7 @@ public class HelloController {
     }
 
     /**
-     * 호출하는 서비스 context path 주소를 매핑하는 작업
-     * 예) /hello
+     * 같은 html을 다른 context path로 설정 가능
      */
     @GetMapping("/hello2")
     public String hello2(Model model){

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Singup</title>
+
+    <script>
+        async function handleSubmit() {
+            // 1. 값 가져오기!
+            const id = document.getElementById("id").value;
+            const pwd = document.getElementById("pwd").value;
+            const name = document.getElementById("name").value;
+            const address = document.getElementById("address").value;
+
+            // JSON 객체 생성
+            const formData = { "id": id, "pwd": pwd, "name": name, "address": address };
+
+            // 2. fetch 메소드를 통해 송신 및 수신
+            /**
+            * method : 전송하는 Mapping 타입
+            * headers : 전송하는 객체 타입
+            * body : 전송하는 데이터
+            */
+            const response = await fetch("http://localhost:8080/member/restSignup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+             });
+
+            // 3. 확인?
+            if(response.ok){
+                const { result, member } = await response.json();
+
+                if(result){
+                    const output = `
+                      <ul>
+                        <li>result : ${result}</li>
+                        <li>아이디 : ${member.id}</li>
+                        <li>비밀번호 : ${member.pwd}</li>
+                        <li>이름 : ${member.name}</li>
+                        <li>주소 : ${member.address}</li>
+                      </ul>
+                    `;
+
+                    document.getElementById("result").innerHTML = output;
+                } else {
+                    document.getElementById("result").innerHTML = "";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>회원가입 화면(REST)</h1>
+    <hr>
+    <ul>
+        <li>
+            <label>아이디 : </label>
+            <input type="text" id="id"/>
+        </li>
+        <li>
+            <label>패스워드 : </label>
+            <input type="password" id="pwd"/>
+        </li>
+        <li>
+            <label>이름 : </label>
+            <input type="text" id="name"/>
+        </li>
+        <li>
+            <label>주소 : </label>
+            <input type="text" id="address"/>
+        </li>
+        <li>
+            <button type="button" onClick="handleSubmit()">회원가입</button>
+            <button type="reset">취소</button>
+        </li>
+    </ul>
+    <hr>
+    <div id="result"></div>
+    <a href="/">홈으로</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymleaf.org"> <!-- thymleaf 임포트 -->
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 결과</title>
+</head>
+<body>
+    <h1>로그인 결과 : <span th:text="${result}"></span></h1>
+    <hr>
+    <ul>
+        <li>아이디 : <span th:text="${member.getId()}"></span></li>
+        <li>패스워드 : <span th:text="${member.getPwd()}"></span></li>
+    </ul>
+    <a href="/">홈으로</a>
+</body>
+</html>
