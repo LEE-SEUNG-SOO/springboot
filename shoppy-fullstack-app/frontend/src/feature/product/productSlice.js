@@ -5,7 +5,8 @@ const initialState = {
     "productList": [], // 출력용 2차원 배열
     "products":[], // 원본 - 1차원 배열
     "product":{},
-    "number":3
+    "number":3,
+    "imgList":[]
 };
 
 // Slice reducers 설정( 함수 설정 )
@@ -21,9 +22,12 @@ export const productSlice = createSlice({
         state.products = products;
     },
     setProduct (state, action) {
-        const { pid } = action.payload;
-        // const pid = action.payload.pid;
-        state.product = state.products.find( data => data.pid === pid ); // find => 객체 형태로 리턴, fillter => 배열 형태로 리턴
+          const { product } = action.payload;
+          state.product = product;
+          state.imgList = JSON.parse(product.imgList);
+//        const { pid } = action.payload;
+//        // const pid = action.payload.pid;
+//        state.product = state.products.find( data => data.pid === pid ); // find => 객체 형태로 리턴, fillter => 배열 형태로 리턴
     }
   }
 });

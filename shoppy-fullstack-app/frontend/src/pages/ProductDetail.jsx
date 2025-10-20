@@ -15,7 +15,7 @@ export function ProductDetail() {
     // addCartItem을 사용하기 위한 dispatch설정
     const dispatch = useDispatch();
     const product = useSelector( state => state.product.product );
-    const imgList = product.imgList;
+    const imgList = useSelector( state => state.product.imgList );
     const { pid } = useParams(); // useParams -> 객체형태로 데이터 보존
     const [size, setSize] = useState("XS");
     const tabLables = ["DETAIL", "REVIEW", "Q&A", "RETURN & DELIVERY"];
@@ -28,26 +28,11 @@ export function ProductDetail() {
     
     const price = parseInt(product.price).toLocaleString() + "원";
 
-    // // 쇼핑백 추가
-    // const handleAddCartItem = () => {
-    //     const cartItem = {
-    //         pid:product.pid,
-    //         name:product.name,
-    //         image:product.image,
-    //         price:product.price,
-    //         info:product.info,
-    //         size: size,
-    //         qty:1
-    //     };
-
-    //     dispatch(addCart(cartItem)); // addCart 호출시 dispatch 전송
-    // }
-
     return (
         <div className='content'>
             <div className='product-detail-top'>
                 <div className='product-detail-image-top'>
-                    <img src={product.image} alt={product.info} />
+                    <img src={`/images/${product.image}`} alt={product.info} />
                     <ImageList imgList={imgList} className="product-detail-image-top-list"/>
                 </div>
                 <ul className='product-detail-info-top'>
@@ -100,7 +85,7 @@ export function ProductDetail() {
                 { tabName === "detail" ? <Detail imgList={imgList} detailInfo={product.detailInfo}/> 
                     : tabName === "review" ? <Review />
                     : tabName === "qna" ? <QnA />
-                    : <Return />}
+                    : <Return /> }
             </div>
             <div style={{marginBottom:"50px"}}></div>
         </div>

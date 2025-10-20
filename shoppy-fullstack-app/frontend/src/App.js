@@ -27,21 +27,21 @@ export default function App() {
     <ProductProvider>
     <CartProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path='/all' element={<Product />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/support' element={<ProtectedPageRoute><Support /></ProtectedPageRoute>} />
-            <Route path='/cart' element={<Cart />}/>
-            <Route path='/products/:pid' element={<ProductDetail />} />
-            <Route path='/checkout' element={<ProtectedPageRoute><CheckoutInfo /></ProtectedPageRoute>}/>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </CartProvider>
-    </ProductProvider>
-    </AuthProvider>
-  );
-}
+         <Routes>
+           <Route path="/" element={<Layout />}>
+             <Route index element={<Home />} />
+             <Route path='/all' element={<Product />} />
+             <Route path='/login' element={<Login />} />
+             <Route path='/signup' element={<Signup />} />
+             <Route path='/support' element={<ProtectedPageRoute><Support /></ProtectedPageRoute>} />
+             <Route path='/cart' element={<Cart />}/>
+             <Route path='/products/:pid' element={<ProductDetail />} />
+             <Route path='/checkout' element={<ProtectedPageRoute><CheckoutInfo /></ProtectedPageRoute>}/>
+           </Route>
+         </Routes>
+       </BrowserRouter>
+     </CartProvider>
+     </ProductProvider>
+     </AuthProvider>
+   );
+ }

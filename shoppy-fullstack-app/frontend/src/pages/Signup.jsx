@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext.js';
 import { useAuth } from '../hooks/useAuth.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { axiosPost } from  "../utils/fetchData.js";
+import { getSignup, getDuplicateId } from "../feature/auth/authAPI.js";
 
 export function Signup() {
     const { setUser } = useContext(AuthContext);
@@ -25,18 +25,7 @@ export function Signup() {
     const handleSubmitForm = async (e) => {
         e.preventDefault();
         if(validateCheck(form, setMsg, ref)){
-            const formData = { ...form, email: form.emailName.concat("@", form.emailDomain)};
-            console.log("formData: ", formData);
-
-            /**
-            * SpringBoot - @RestController, @PostMapping("member/login")
-            * formData.id, formData.pwd 파라미터 전송
-            * 같은 네트워크, 다른 포트번호 사용시 에러 발생가능성 있음.
-            * axiosAPI 사용
-            */
-            const url = "http://localhost:8080/member/signup";
-            const result = await axiosPost(url, formData);
-            console.log("result : ", result);
+            const result = await getSignup(form);
 
             if(result){
                 setMsg(initMsg);
@@ -61,16 +50,7 @@ export function Signup() {
         setForm({...form, [name]:value});
     }
     const handleDuplicateIdCheck = async () => {
-        /**
-        * SpringBoot - @RestController, @PostMapping("member/login")
-        * formData.id, formData.pwd 파라미터 전송
-        * 같은 네트워크, 다른 포트번호 사용시 에러 발생가능성 있음.
-        * axiosAPI 사용
-        */
-        const data = {"id": form.id };
-        const url = "http://localhost:8080/member/checkDuplicateId";
-        const result = await axiosPost(url, data);
-
+        const result = await getDuplicateId(form);
         alert(result);
     }
 
