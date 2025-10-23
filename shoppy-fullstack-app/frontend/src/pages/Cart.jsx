@@ -48,7 +48,7 @@ export function Cart() {
                                 <input type="text" value={ item.qty } readOnly/>
                                 <button type='button' onClick={ () => { dispatch(updateCart( item.cid, true )) } }>+</button>
                             </div>
-                            <button className='cart-remove' onClick={ () => { dispatch(removeCart(item.cid)) } }>
+                            <button className='cart-remove' onClick={ () => { dispatch(removeCart(item.cid, item.qty)) } }>
                                 <RiDeleteBin6Line />
                             </button>
                         </div>

@@ -12,7 +12,7 @@ export const setCount = (id) => async(dispatch) => {
     const url = "/cart/count";
     const data = {"id": id}
     const jsonData = await axiosPost(url, data);
-    await dispatch(setCartCount({ "cartCount": jsonData.sumQty }));
+    dispatch(setCartCount({ "cartCount": jsonData.sumQty }));
 }
 
 export const addCart = (pid, size) => async (dispatch) => {
@@ -23,16 +23,16 @@ export const addCart = (pid, size) => async (dispatch) => {
 
     // 장바구니 테이블에 값이 존재 할 경우 qty값 + 1
     if(result){
-        const updateResult = await updateCart(result.cid, true);
+        dispatch(updateCart(result.cid, true));
     }
     // 장바구니 테이블에 존재하지 않을 경우 레코드 추가
     else {
         const url = "/cart/add";
         const cartItem = { "pid": pid, "size":size, "qty":1, "id":userId };
         const rows = await axiosPost(url, cartItem);
+        // 장바구니 갯수 + 1
+        dispatch(updateCartCount({"cartCount": 1}));
     }
-    // 장바구니 갯수 + 1
-    dispatch(updateCartCount());
 }
 
 // 장바구니 정보 취득
@@ -52,27 +52,45 @@ export const checkCart = async(pid, size, id) => {
     return cartData;
 }
 
-export const updateCart = async (cid, upFlag) => {
+export const updateCart = (cid, upFlag) => async(dispatch) => {
     const url = "/cart/updateQty";
-    const cartData = { "cid": cid, "upFlag":upFlag }
+    const cartData = { "cid": cid, "upFlag":upFlag };
+    let count = 0;
     // 장바구니 테이블의 qty값 변경 upFlag(true : 1증가, false : 1감소)
     const rows = await axiosPost(url, cartData);
-
+    // + - 버튼 클릭에 따른 카운트 증가 감소 설정
+    if(upFlag){
+        // 장바구니 갯수 설정
+        count = 1;
+    } else {
+        // 장바구니 갯수 설정
+        count = -1;
+    }
+    // 장바구니 갯수 + 1
+    dispatch(updateCartCount({"cartCount": count}));
+    // 장바구니 아이템 재설정
+    dispatch(showCart());
+    // 총 금액 설정
+    dispatch(updateTotalPrice());
     return rows;
-//    // 해당 cid의 상품에 대해 upflag의 종류에 따라 1증가 또는 1감소
-//    dispatch(updateCartItem({"cid":cid, "upflag":upflag}));
-//    // 장바구니 갯수 설정
-//    dispatch(updateCartCount());
-//    // 총 금액 설정
-//    dispatch(updateTotalPrice());
 }
 
-export const removeCart = (cid) => (dispatch) => {
-    // 해당 cid의 상품을 장바구니에서 삭제
-    dispatch(removeCartItem({"cid":cid}));
-    // 장바구니 갯수 설정
-    dispatch(updateCartCount());
+export const removeCart = (cid, qty) => async(dispatch) => {
+    const url = "/cart/deleteItem";
+    const cartData = { "cid": cid };
+    // 장바구니 테이블의 삭제
+    const rows = await axiosPost(url, cartData);
+
+    // 장바구니 테이블의 삭제가 정상 처리 됬을 경우
+    if(rows === 1){
+        // 장바구니 갯수 설정
+        dispatch(updateCartCount({"cartCount": -qty}));
+    } else {
+        alert("errer");
+    }
+
+    // 장바구니 아이템 재설정
+    dispatch(showCart());
     // 총 금액 설정
     dispatch(updateTotalPrice());
 }
-

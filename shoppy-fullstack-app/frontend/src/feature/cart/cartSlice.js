@@ -22,7 +22,7 @@ export const cartSlice = createSlice({
     addCartItem (state, action) {
       const { cartItem } = action.payload;
       state.cartList = cartItem;
-      state.cartList = cartItemsCheck(state.cartList, cartItem);
+//      state.cartList = cartItemsCheck(state.cartList, cartItem);
     },
     setCartItem (state, action) {
       const { cartItem } = action.payload;
@@ -34,31 +34,32 @@ export const cartSlice = createSlice({
         state.cartCount = cartCount;
     },
     // 장바구니 갯수 설정(쇼핑백 버튼 클릭)
-    updateCartCount (state) {
-      state.cartCount += 1;
+    updateCartCount (state, action) {
+        const { cartCount } = action.payload;
+      state.cartCount += cartCount;
     },
     // 총 금액 설정
     updateTotalPrice (state) {
       state.totalPrice = state.cartList.reduce( ( total, item ) => total + (item.qty * item.price) , 0);
     },
-    // 장바구니 추가,감소 설정
-    updateCartItem (state, action) {
-      const { cid, upflag } = action.payload;
-      // 장바구니 갱신 데이터 취득
-      state.cartList = 
-        state.cartList.map( item => 
-          item.cid === cid ? 
-              upflag ? { ...item, qty: item.qty + 1 }
-                      :{ ...item, qty: item.qty - 1 }
-          : item
-      )
-    },
-    // 장바구니 삭제설정
-    removeCartItem (state, action) {
-      const { cid } = action.payload;
-      // 삭제대상외 장바구니 재설정
-      state.cartList = state.cartList.filter( item => item.cid !== cid );
-    },
+//    // 장바구니 추가,감소 설정
+//    updateCartItem (state, action) {
+//      const { cid, upflag } = action.payload;
+//      // 장바구니 갱신 데이터 취득
+//      state.cartList =
+//        state.cartList.map( item =>
+//          item.cid === cid ?
+//              upflag ? { ...item, qty: item.qty + 1 }
+//                      :{ ...item, qty: item.qty - 1 }
+//          : item
+//      )
+//    },
+//    // 장바구니 삭제설정
+//    removeCartItem (state, action) {
+//      const { cid } = action.payload;
+//      // 삭제대상외 장바구니 재설정
+//      state.cartList = state.cartList.filter( item => item.cid !== cid );
+//    },
     // 장바구니 초기화
     initCartItem (state, action) {
       state.cartList = [];
