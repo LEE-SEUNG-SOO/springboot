@@ -1,10 +1,21 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { ImageList } from '../commons/ImageList.jsx';
+import { getDetailInfo } from '../../feature/product/productAPI.js'
 
 /**
  * ProductDetail > Detail
  */
-export function Detail({imgList, detailInfo}) {    
+export function Detail({imgList, pid}) {
+    const [detailInfo, setDetailInfo] = useState({});
+
+    useEffect( () => {
+        const loadData = async(pid) => {
+                const jsonData = await getDetailInfo(pid);
+                setDetailInfo(jsonData);
+            }
+        loadData(pid);
+    }, []);
+
     return (
         <div>
             <DetailImages imgList={imgList}/>
@@ -30,25 +41,24 @@ export function DetailImages({imgList}) {
  * ProductDetail > Detail > DetailInfo
  */
 export function DetailInfo({detailInfo}) {
-
     return (
         <div className='detail-info'>
             <h4 className='detail-info-title-top'>
-                {detailInfo && detailInfo.title_en} / {detailInfo && detailInfo.title_ko}
+                {detailInfo && detailInfo.titleEn} / {detailInfo && detailInfo.titleKo}
             </h4>
             {
-                detailInfo && detailInfo.list.map( item => 
+                detailInfo.list && detailInfo.list.map( item =>
                     <div>
                         <h5 className='detail-info-title'>[{item.title}]</h5>
                         {
                             item.title === "SIZE" || item.title === "MODEL SIZE" ?
                             <ul className='nolist'>
                                 <li>{item.type}</li>
-                                { item.title === "MODEL SIZE" && 
+                                { item.title === "MODEL SIZE" &&
                                     <>
                                         <li>{item.height}</li>
                                         <li>{item.size}</li>
-                                    </> 
+                                    </>
                                 }
                                 { item.title === "SIZE" &&
                                     <>
@@ -62,15 +72,15 @@ export function DetailInfo({detailInfo}) {
                                     </>
                                 }
                             </ul>
-                            : 
+                            :
                             <ul className='list nolist'>
-                                { item.title === "FABRIC" && 
+                                { item.title === "FABRIC" &&
                                     <>
                                         <li>color : {item.color}</li>
                                         <li>material : {item.material}</li>
                                     </>
                                 }
-                                { item.description.map( desc =>  
+                                { item.description.map( desc =>
                                     <li>{desc}</li>
                                 )}
                             </ul>

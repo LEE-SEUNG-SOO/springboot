@@ -7,7 +7,6 @@ export const axiosPost = async (url, formData) => {
     // axios.post 사용
     // url, 데이터, 환경설정 get방식일경우 url, 데이터까지만
     const response = await axios.post(url, formData, { "Content-Type":"application/json" });
-    console.log(response);
     // axios API 사용
 //    const response = await axios({
 //                             method: 'post',

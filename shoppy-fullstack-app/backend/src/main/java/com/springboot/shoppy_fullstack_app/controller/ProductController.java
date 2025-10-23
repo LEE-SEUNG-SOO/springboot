@@ -1,6 +1,9 @@
 package com.springboot.shoppy_fullstack_app.controller;
 
 import com.springboot.shoppy_fullstack_app.dto.Product;
+import com.springboot.shoppy_fullstack_app.dto.ProductDetailInfo;
+import com.springboot.shoppy_fullstack_app.dto.ProductQnA;
+import com.springboot.shoppy_fullstack_app.dto.ProductReturn;
 import com.springboot.shoppy_fullstack_app.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +29,23 @@ public class ProductController {
     }
 
     @PostMapping("/detail")
-    public Product detail(@RequestBody Product Product){
-        return productService.findByPid(Product.getPid());
+    public Product detail(@RequestBody Product product){
+        return productService.findByPid(product.getPid());
+    }
+
+    @PostMapping("/detailInfo")
+    public ProductDetailInfo detailInfo(@RequestBody Product product){
+        return productService.findDetailInfo(product.getPid());
+    }
+
+    @PostMapping("/qna")
+    public List<ProductQnA> qna(@RequestBody Product product){
+        return productService.findQnA(product.getPid());
+    }
+
+    @GetMapping("/return")
+    public ProductReturn getReturn(){
+        // List타입으로 반환하지만 RestController가 있으므로 JSON형태로 넘어간다.
+        return productService.findReturn();
     }
 }

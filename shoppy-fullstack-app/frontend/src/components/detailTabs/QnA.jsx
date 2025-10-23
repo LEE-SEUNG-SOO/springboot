@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { axiosData } from '../../utils/fetchData.js';
 import { CiLock, CiUnlock } from "react-icons/ci";
+import { getQnA } from '../../feature/product/productAPI.js';
 
-export function QnA() {
+export function QnA({pid}) {
     const [qnaData, setQnaData] = useState([]);
     const [openQid, setOpenQid] = useState();
     const [isOpen, setIsOpen] = useState(true);
     const [bgcolor, setBgColor] = useState("blue");
     
     useEffect( () => {
-        const fetch = async() => {
-            const jsonData = await axiosData('/data/productQnA.json');
+        const fetch = async(pid) => {
+            const jsonData = await getQnA(pid);
             setQnaData(jsonData);
         }
-        
-        fetch();
+        fetch(pid);
     }, []);
 
     const handleToggle = (qid) =>{
@@ -31,16 +31,10 @@ export function QnA() {
             <div style={{paddingTop:"20px"}}>
                 <button type="button" onClick={handleClick} 
                     style={{backgroundColor:bgcolor , color:"white"}}>상품 문의</button>
-                {/* { isOpen ?
-                    <button type="button" onClick={handleClick} 
-                    style={{backgroundColor:"blue", color:"white"}}>상품 문의</button> 
-                  : <button type="button" onClick={handleClick} 
-                    style={{backgroundColor:"green", color:"white"}}>상품 문의</button>
-                } */}
             </div>
             <table className='review-list-content' style={{marginTop:"10px"}}>
                 <tbody>
-                    { qnaData && qnaData.map( item => 
+                    { qnaData && qnaData.map( item =>
                         <tr>
                             <td style={{width:"15%", padding:"10px"}}><span>{item.isComplete ? "답변완료" : "답변중"}</span></td>
                             <td style={{width:"70%"}}>

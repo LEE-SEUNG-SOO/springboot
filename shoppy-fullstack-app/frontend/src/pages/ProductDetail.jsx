@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { PiGiftThin } from 'react-icons/pi';
 import { ImageList } from '../components/commons/ImageList.jsx';
 import { StarRating } from '../components/commons/StarRating.jsx';
@@ -16,11 +16,13 @@ export function ProductDetail() {
     const dispatch = useDispatch();
     const product = useSelector( state => state.product.product );
     const imgList = useSelector( state => state.product.imgList );
+    const isLogin = useSelector( state => state.auth.isLogin);
     const { pid } = useParams(); // useParams -> 객체형태로 데이터 보존
     const [size, setSize] = useState("XS");
     const tabLables = ["DETAIL", "REVIEW", "Q&A", "RETURN & DELIVERY"];
     const [tabName, setTabName] = useState("detail");
     const tabEventNames = ['detail', 'review', 'qna', 'return']
+    const navigate = useNavigate();
 
     useEffect( () => {
         dispatch(getFilter(pid));
@@ -59,7 +61,9 @@ export function ProductDetail() {
                         <button type='button' className='product-detail-button order'>바로 구매</button>
                         <button type='button'
                                 className='product-detail-button cart'
-                                onClick={ () => dispatch(addCart(product, size))  }>쇼핑백 담기</button>
+                                onClick={ () => {
+                                    isLogin ? dispatch(addCart(product.pid, size)) : navigate("/login")
+                                    }}>쇼핑백 담기</button>
                         <div type="button" className='gift'>
                             <PiGiftThin />
                             <div className='gift-span'>선물하기</div>
@@ -82,9 +86,9 @@ export function ProductDetail() {
                         )
                     }
                 </ul>
-                { tabName === "detail" ? <Detail imgList={imgList} detailInfo={product.detailInfo}/> 
+                { tabName === "detail" ? <Detail imgList={imgList} pid={pid}/>
                     : tabName === "review" ? <Review />
-                    : tabName === "qna" ? <QnA />
+                    : tabName === "qna" ? <QnA pid={pid}/>
                     : <Return /> }
             </div>
             <div style={{marginBottom:"50px"}}></div>

@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTotalPrice, updateCart, removeCart } from '../feature/cart/cartAPI.js';
+import { getTotalPrice, updateCart, removeCart, showCart } from '../feature/cart/cartAPI.js';
 import { setPage } from '../feature/auth/authAPI.js';
-
+import { useEffect } from 'react';
 import '../styles/cart.css';
 
 export function Cart() {
@@ -16,7 +16,11 @@ export function Cart() {
     const totalPrice = useSelector(state => state.cart.totalPrice);
     // 총 금액 설정
     dispatch(getTotalPrice());
-    
+
+    useEffect( () => {
+        dispatch(showCart());
+    }, []);
+
     const navigate = useNavigate();
     
     const hanldeLogin = () => {
@@ -33,7 +37,7 @@ export function Cart() {
                     <div>
                         <div className='cart-item'>
                             {item.cid}
-                            <img src={ item.image } alt="이미지" />
+                            <img src={ `/images/${item.image}` } alt="이미지" />
                             <div className='cart-item-details'>
                                 <p className='cart-item-title'> { item.name } </p>
                                 <p className='cart-item-title'> { item.size } </p>

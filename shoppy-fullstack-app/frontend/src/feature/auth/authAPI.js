@@ -2,6 +2,7 @@ import { login, logout, setIsCart } from "./authSlice.js";
 import { validateFormCheck } from "../../utils/validate.js";
 import { initCartItem } from "../cart/cartSlice.js";
 import { axiosPost } from  "../../utils/fetchData.js";
+import { setCount } from "../../feature/cart/cartAPI.js";
 
 export const getLogin = (formData, idRef, pwdRef, setText) => async (dispatch) => {
     let result = false;
@@ -19,6 +20,9 @@ export const getLogin = (formData, idRef, pwdRef, setText) => async (dispatch) =
 
         if(request) {
             dispatch(login({"userId":formData.id})); // 비동기
+            // 장바구니 카운트 갯수 설정 함수 호출
+            dispatch(setCount(formData.id)); // 비동기
+
             result = true;
         }
     }
@@ -27,7 +31,9 @@ export const getLogin = (formData, idRef, pwdRef, setText) => async (dispatch) =
 }
 
 export const getLogout = () => (dispatch) => {
+    // 로그인 정보 초기화
     dispatch(logout());
+    // 장바구니 초기화
     dispatch(initCartItem());
     return true;
 }

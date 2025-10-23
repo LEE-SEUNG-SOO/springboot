@@ -21,11 +21,21 @@ export const cartSlice = createSlice({
     // 장바구니 리스트 추가 설정
     addCartItem (state, action) {
       const { cartItem } = action.payload;
+      state.cartList = cartItem;
       state.cartList = cartItemsCheck(state.cartList, cartItem);
     },
-    // 장바구니 갯수 설정
+    setCartItem (state, action) {
+      const { cartItem } = action.payload;
+      state.cartList = cartItem;
+    },
+    // 장바구니 갯수 설정(로그인, 장바구니 삭제 시)
+    setCartCount(state, action) {
+        const { cartCount } = action.payload;
+        state.cartCount = cartCount;
+    },
+    // 장바구니 갯수 설정(쇼핑백 버튼 클릭)
     updateCartCount (state) {
-      state.cartCount = state.cartList.reduce( ( total, item ) => total + item.qty , 0);
+      state.cartCount += 1;
     },
     // 총 금액 설정
     updateTotalPrice (state) {
@@ -59,7 +69,7 @@ export const cartSlice = createSlice({
 });
 
 // 컴포넌트, API함수에서 reducers의 함수를 사용하기 위해 action 추가(dispatch)
-export const { addCartItem, updateCartCount, updateTotalPrice, updateCartItem, removeCartItem, initCartItem } = cartSlice.actions;
+export const { addCartItem, setCartItem, setCartCount, updateCartCount, updateTotalPrice, updateCartItem, removeCartItem, initCartItem } = cartSlice.actions;
 
 // store import
 export default cartSlice.reducer;
