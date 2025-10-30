@@ -13,6 +13,7 @@ import { AuthProvider } from './context/AuthContext.js';
 import { ProductProvider } from './context/ProductContext.js';
 import { CartProvider } from './context/CartContext.js';
 import { ProtectedPageRoute } from './pages/ProtectedPageRoute.js';
+import { PayResult } from './pages/PayResult.jsx';
 
 import './styles/shoppy.css';
 import './styles/commons.css';
@@ -36,6 +37,7 @@ export default function App() {
              <Route path='/support' element={<ProtectedPageRoute><Support /></ProtectedPageRoute>} />
              <Route path='/cart' element={<Cart />}/>
              <Route path='/products/:pid' element={<ProductDetail />} />
+             <Route path='/payResult' element={<PayResult/>} />
              <Route path='/checkout' element={<ProtectedPageRoute><CheckoutInfo /></ProtectedPageRoute>}/>
            </Route>
          </Routes>

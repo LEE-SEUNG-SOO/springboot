@@ -97,14 +97,23 @@ public class JdbcTemplateCartRepository implements CartRepository{
     @Override
     public List<CartListResponse> getCartList(CartItem cartItem) {
         String sql = """
-                    SELECT m.id,  p.pid, c.cid, p.name, p.price, p.image, c.size, c.qty
-                    FROM member m, product p, cart c
-                    WHERE m.id = c.id
-                    AND p.pid = c.pid
-                    AND m.id = ?
+                    SELECT id, info, pid, cid, name, price, image, size, qty
+                    FROM view_cartlist
+                    WHERE id = ?
                 """;
         return jdbcTemplate.query(sql,
                 new BeanPropertyRowMapper<>(CartListResponse.class),
                 cartItem.getId());
+    }
+
+    @Override
+    // 장바구니 테이블에서 cid의 레코드 삭제
+    public int deleteItem(CartItem cartItem) {
+        String sql = """
+                    DELETE FROM cart
+                    WHERE cid = ?
+                """;
+        return jdbcTemplate.update(sql,
+                cartItem.getCid());
     }
 }

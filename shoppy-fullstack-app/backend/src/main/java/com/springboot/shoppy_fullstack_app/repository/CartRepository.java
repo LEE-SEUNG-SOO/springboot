@@ -12,4 +12,5 @@ public interface CartRepository {
     public int decreaseQty(CartItem cartItem);
     public CartItem getCount(CartItem cartItem);
     public List<CartListResponse> getCartList(CartItem cartItem);
+    public int deleteItem(CartItem cartItem);
 }

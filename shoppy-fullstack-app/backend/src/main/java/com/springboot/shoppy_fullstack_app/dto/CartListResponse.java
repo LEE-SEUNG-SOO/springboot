@@ -8,6 +8,7 @@ public class CartListResponse {
     private int pid;
     private int cid;
     private String name;
+    private String info;
     private int price;
     private String image;
     private String size;

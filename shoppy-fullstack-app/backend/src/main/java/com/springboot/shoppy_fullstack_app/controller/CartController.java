@@ -30,8 +30,8 @@ public class CartController {
     }
 
     @PostMapping("/updateQty")
-    public void updateQty(@RequestBody CartItem cartItem){
-        cartService.updateQty(cartItem);
+    public int updateQty(@RequestBody CartItem cartItem){
+        return cartService.updateQty(cartItem);
     }
 
     @PostMapping("/count")
@@ -42,5 +42,10 @@ public class CartController {
     @PostMapping("/cartList")
     public List<CartListResponse> cartList(@RequestBody CartItem cartItem){
         return cartService.getCartList(cartItem);
+    }
+
+    @PostMapping("/deleteItem")
+    public int deleteItem(@RequestBody CartItem cartItem){
+        return cartService.deleteItem(cartItem);
     }
 }

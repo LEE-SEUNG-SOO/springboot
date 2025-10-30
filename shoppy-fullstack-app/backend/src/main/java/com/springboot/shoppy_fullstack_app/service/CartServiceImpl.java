@@ -52,4 +52,9 @@ public class CartServiceImpl implements CartService {
     public List<CartListResponse> getCartList(CartItem cartItem) {
         return cartRepository.getCartList(cartItem);
     }
+
+    @Override
+    public int deleteItem(CartItem cartItem) {
+        return cartRepository.deleteItem(cartItem);
+    }
 }

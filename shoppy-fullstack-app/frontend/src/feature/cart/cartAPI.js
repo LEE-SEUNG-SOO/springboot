@@ -16,7 +16,7 @@ export const setCount = (id) => async(dispatch) => {
 }
 
 export const addCart = (pid, size) => async (dispatch) => {
-    // localStorage에 String타입으로 저장했으니 json타입으로 parse
+    // localStorage에 String타입으로 저장했으니 json타입    으로 parse
     const { userId } = JSON.parse(localStorage.getItem("loginInfo"));
     // 장바구니 테이블에서 선택한 상품이 존재하는가 체크
     const result = await checkCart(pid, size, userId);

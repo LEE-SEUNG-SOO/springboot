@@ -11,4 +11,5 @@ public interface CartService {
     public int updateQty(CartItem cartItem);
     public CartItem getCount(CartItem cartItem);
     public List<CartListResponse> getCartList(CartItem cartItem);
+    public int deleteItem(CartItem cartItem);
 }
