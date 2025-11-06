@@ -3,6 +3,7 @@ import { validateFormCheck } from "../../utils/validate.js";
 import { initCartItem } from "../cart/cartSlice.js";
 import { axiosPost } from  "../../utils/fetchData.js";
 import { setCount } from "../../feature/cart/cartAPI.js";
+import { refreshCsrfToken } from "../csrf/manageCsrfToken.js";
 
 export const getLogin = (formData, idRef, pwdRef, setText) => async (dispatch) => {
     let result = false;
@@ -17,8 +18,8 @@ export const getLogin = (formData, idRef, pwdRef, setText) => async (dispatch) =
         */
         const url = "/member/login";
         const request = await axiosPost(url, formData);
-
-        if(request) {
+        console.log("request : ", request);
+        if(request.login) {
             dispatch(login({"userId":formData.id})); // 비동기
             // 장바구니 카운트 갯수 설정 함수 호출
             dispatch(setCount(formData.id)); // 비동기
@@ -30,12 +31,18 @@ export const getLogin = (formData, idRef, pwdRef, setText) => async (dispatch) =
     return result;
 }
 
-export const getLogout = () => (dispatch) => {
-    // 로그인 정보 초기화
-    dispatch(logout());
-    // 장바구니 초기화
-    dispatch(initCartItem());
-    return true;
+export const getLogout = () => async(dispatch) => {
+    const url = "/member/logout";
+    const result = await axiosPost(url, {});
+    if(result){
+        // csrf 토큰 재발급
+        refreshCsrfToken();
+        // 로그인 정보 초기화
+        dispatch(logout());
+        // 장바구니 초기화
+        dispatch(initCartItem());
+    }
+    return result;
 }
 
 export const setPage = () => (dispatch) => {

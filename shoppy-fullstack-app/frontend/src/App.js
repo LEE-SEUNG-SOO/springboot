@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home.jsx';
 import { Product } from './pages/Product.jsx';
@@ -14,6 +14,7 @@ import { ProductProvider } from './context/ProductContext.js';
 import { CartProvider } from './context/CartContext.js';
 import { ProtectedPageRoute } from './pages/ProtectedPageRoute.js';
 import { PayResult } from './pages/PayResult.jsx';
+import { createCsrfToken } from './feature/csrf/manageCsrfToken.js';
 
 import './styles/shoppy.css';
 import './styles/commons.css';
@@ -21,9 +22,15 @@ import './styles/cgv.css';
 
 // : <- 패스배리어블( 경로 변수 설정)
 export default function App() {
-  // CartProvider로 범위 지정
-  // <ExProvider> <<= 추가로 쓸 프로바이더 설정
-  return (
+
+    // App이 최초로 호출되면 CSRF 토큰 발급
+    useEffect(() => {
+        createCsrfToken();
+    },[]);
+
+    // CartProvider로 범위 지정
+    // <ExProvider> <<= 추가로 쓸 프로바이더 설정
+    return (
     <AuthProvider>
     <ProductProvider>
     <CartProvider>
@@ -45,5 +52,5 @@ export default function App() {
      </CartProvider>
      </ProductProvider>
      </AuthProvider>
-   );
- }
+    );
+}

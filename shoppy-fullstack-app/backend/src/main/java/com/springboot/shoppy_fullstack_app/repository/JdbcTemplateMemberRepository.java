@@ -40,7 +40,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
 
     @Override
     public Member getPwd(String id) {
-        String sql = "SELECT pwd FROM member WHERE id = ?";
+        String sql = "SELECT ifnull(MAX(pwd), null) as pwd FROM member WHERE id = ?";
         // select문
         // BeanPropertyRowMapper를 사용해서 member객체에 출력결과 취득
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Member.class), id);

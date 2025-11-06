@@ -21,9 +21,9 @@ public class SecurityConfig {
     //
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.disable()) // csrf.disable() csrf 체크 해제
             .cors(Customizer.withDefaults())
-            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 관리
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/member/**", "/product/**", "/cart/**", "/support/**", "/payment/**").permitAll() // RequestMapping
                     .anyRequest().authenticated()
