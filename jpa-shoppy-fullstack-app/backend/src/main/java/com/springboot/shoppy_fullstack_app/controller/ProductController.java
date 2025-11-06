@@ -1,9 +1,9 @@
 package com.springboot.shoppy_fullstack_app.controller;
 
-import com.springboot.shoppy_fullstack_app.dto.Product;
-import com.springboot.shoppy_fullstack_app.dto.ProductDetailInfo;
-import com.springboot.shoppy_fullstack_app.dto.ProductQnA;
-import com.springboot.shoppy_fullstack_app.dto.ProductReturn;
+import com.springboot.shoppy_fullstack_app.dto.ProductDTO;
+import com.springboot.shoppy_fullstack_app.dto.ProductDetailInfoDTO;
+import com.springboot.shoppy_fullstack_app.dto.ProductQnADTO;
+import com.springboot.shoppy_fullstack_app.dto.ProductReturnDTO;
 import com.springboot.shoppy_fullstack_app.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,28 +23,28 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public List<Product> all(){
+    public List<ProductDTO> all(){
         // List타입으로 반환하지만 RestController가 있으므로 JSON형태로 넘어간다.
         return productService.findAll();
     }
 
     @PostMapping("/detail")
-    public Product detail(@RequestBody Product product){
+    public ProductDTO detail(@RequestBody ProductDTO product){
         return productService.findByPid(product.getPid());
     }
 
     @PostMapping("/detailInfo")
-    public ProductDetailInfo detailInfo(@RequestBody Product product){
+    public ProductDetailInfoDTO detailInfo(@RequestBody ProductDTO product){
         return productService.findDetailInfo(product.getPid());
     }
 
     @PostMapping("/qna")
-    public List<ProductQnA> qna(@RequestBody Product product){
+    public List<ProductQnADTO> qna(@RequestBody ProductDTO product){
         return productService.findQnA(product.getPid());
     }
 
     @GetMapping("/return")
-    public ProductReturn getReturn(){
+    public ProductReturnDTO getReturn(){
         // List타입으로 반환하지만 RestController가 있으므로 JSON형태로 넘어간다.
         return productService.findReturn();
     }
