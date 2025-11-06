@@ -1,0 +1,82 @@
+[
+    {
+        "qid": "1",
+        "isComplete": true,
+        "title":"제목1",
+        "isLock": true,
+        "id":"test",
+        "cdate":"2025-09-22",
+        "content":"문의1",
+        "pid": "1"
+    },
+    {
+        "qid": "2",
+        "isComplete": true,
+        "title":"제목2",
+        "isLock": false,
+        "id":"test",
+        "cdate":"2025-09-23",
+        "content":"문의2",
+        "pid": "2"
+    },
+    {
+        "qid": "3",
+        "isComplete": false,
+        "title":"제목3",
+        "isLock": true,
+        "id":"test1234",
+        "cdate":"2025-09-22",
+        "content":"문의3",
+        "pid": "3"
+    },
+    {
+        "qid": "4",
+        "isComplete": false,
+        "title":"제목4",
+        "isLock": false,
+        "id":"test1234",
+        "cdate":"2025-09-24",
+        "content":"문의4",
+        "pid": "4"
+    },
+    {
+      "qid": "5",
+      "isComplete": true,
+      "title":"제목5",
+      "isLock": true,
+      "id":"test1234",
+      "cdate":"2025-09-24",
+      "content":"문의5",
+      "pid": "5"
+    },
+    {
+      "qid": "6",
+      "isComplete": true,
+      "title":"제목6",
+      "isLock": false,
+      "id":"test1234",
+      "cdate":"2025-09-22",
+      "content":"문의6",
+      "pid": "6"
+    },
+    {
+      "qid": "7",
+      "isComplete": false,
+      "title":"제목7",
+      "isLock": false,
+      "id":"test",
+      "cdate":"2025-09-27",
+      "content":"문의7",
+      "pid": "7"
+    },
+    {
+      "qid": "8",
+      "isComplete": false,
+      "title":"제목8",
+      "isLock": true,
+      "id":"test",
+      "cdate":"2025-09-24",
+      "content":"문의4",
+      "pid": "1"
+    }
+]
