@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { cartItemsCheck } from '../../utils/cart.js';
 
+const saveCart = JSON.parse(localStorage.getItem("cart"));
+
 // 전체 전역 변수
-const initialState = {
+const initialState = saveCart || {
     // 장바구니 갯수
     cartCount: 0,
     // 장바구니 리스트
@@ -40,6 +42,10 @@ export const cartSlice = createSlice({
     updateCartCount (state, action) {
         const { cartCount } = action.payload;
       state.cartCount += cartCount;
+      //새로고침을 위한 데이터 복사(localStorage 저장)
+      localStorage.setItem("cart", JSON.stringify({
+          "cartCount" : cartCount
+      }))
     },
     // 총 금액 설정
     updateTotalPrice (state) {

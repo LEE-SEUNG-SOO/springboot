@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const saveAuth = JSON.parse(localStorage.getItem("auth"));
+
 // 전체 전역 변수
-const initialState = {
+const initialState = saveAuth || {
     "isLogin": false,
     "isCart" : false,
     "id":"test",
@@ -20,11 +22,21 @@ export const authSlice = createSlice({
         state.isLogin = true;
         const item = { "userId":userId , "token":"asdf"};
         localStorage.setItem("loginInfo",JSON.stringify(item));
+
+        //새로고침을 위한 데이터 복사(localStorage 저장)
+        localStorage.setItem("auth", JSON.stringify({
+                "isLogin": true, // 이름과 값이 같을 경우 "isLogin" 생략가능 단 변수로 있을경우만!
+//                    "userId" : userId // 이름과 값이 같을 경우 생략가능
+                    userId
+        }))
     },
     logout(state, action) {
         state.isLogin = false;
-        state.isCart = false; 
+        state.isCart = false;
+        // 로컬 스토리지 초기화
         localStorage.removeItem("loginInfo");
+        localStorage.removeItem("auth");
+        localStorage.removeItem("cart");
     },
     setIsCart(state, action) {
         state.isCart = true;
