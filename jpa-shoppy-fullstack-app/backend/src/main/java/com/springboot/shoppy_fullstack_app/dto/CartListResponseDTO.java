@@ -1,9 +1,15 @@
 package com.springboot.shoppy_fullstack_app.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
-public class CartListResponse {
+@Setter
+@Getter
+@AllArgsConstructor
+public class CartListResponseDTO {
     private String id;
     private int pid;
     private int cid;

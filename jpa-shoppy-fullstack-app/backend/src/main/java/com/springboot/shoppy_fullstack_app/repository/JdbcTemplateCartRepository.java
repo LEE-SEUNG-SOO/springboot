@@ -1,7 +1,7 @@
 package com.springboot.shoppy_fullstack_app.repository;
 
-import com.springboot.shoppy_fullstack_app.dto.CartItem;
-import com.springboot.shoppy_fullstack_app.dto.CartListResponse;
+import com.springboot.shoppy_fullstack_app.dto.CartItemDTO;
+import com.springboot.shoppy_fullstack_app.dto.CartListResponseDTO;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,7 +21,7 @@ public class JdbcTemplateCartRepository implements CartRepository{
 
     @Override
     // 장바구니에 데이터 추가
-    public int add(CartItem cartItem) {
+    public int add(CartItemDTO cartItem) {
         String sql = """
                     INSERT INTO cart(size, qty, pid, id, cdate)
                         VALUES(?, ?, ?, ?, now())""";
@@ -37,7 +37,7 @@ public class JdbcTemplateCartRepository implements CartRepository{
 
     @Override
     // 장바구니 추가시 기존 데이터 확인
-    public CartItem checkCart(CartItem cartItem) {
+    public CartItemDTO checkCart(CartItemDTO cartItem) {
         String sql = """
                     SELECT cid
                     FROM cart
@@ -49,7 +49,7 @@ public class JdbcTemplateCartRepository implements CartRepository{
 
         try {
             return jdbcTemplate.queryForObject(sql,
-                    new BeanPropertyRowMapper<>(CartItem.class),
+                    new BeanPropertyRowMapper<>(CartItemDTO.class),
                     params);
         } 
         // 검색 결과 데이터가 없을 경우 에러 방지
@@ -61,7 +61,7 @@ public class JdbcTemplateCartRepository implements CartRepository{
 
     @Override
     // 장바구니 qty 갯수 증가
-    public int increaseQty(CartItem cartItem) {
+    public int increaseQty(CartItemDTO cartItem) {
         String sql = """
                     UPDATE cart
                     SET qty = qty + 1
@@ -72,7 +72,7 @@ public class JdbcTemplateCartRepository implements CartRepository{
 
     @Override
     // 장바구니 qty 갯수 감소
-    public int decreaseQty(CartItem cartItem) {
+    public int decreaseQty(CartItemDTO cartItem) {
         String sql = """
                     UPDATE cart
                     SET qty = qty - 1
@@ -83,32 +83,32 @@ public class JdbcTemplateCartRepository implements CartRepository{
 
     @Override
     // 장바구니 유저별 카운트 갯수
-    public CartItem getCount(CartItem cartItem) {
+    public CartItemDTO getCount(CartItemDTO cartItem) {
         String sql = """
                     SELECT ifnull(SUM(qty), 0) as sumQty
                     FROM cart
                     WHERE id = ?
                 """;
         return jdbcTemplate.queryForObject(sql,
-                new BeanPropertyRowMapper<>(CartItem.class),
+                new BeanPropertyRowMapper<>(CartItemDTO.class),
                 cartItem.getId());
     }
 
     @Override
-    public List<CartListResponse> getCartList(CartItem cartItem) {
+    public List<CartListResponseDTO> getCartList(CartItemDTO cartItem) {
         String sql = """
                     SELECT id, info, pid, cid, name, price, image, size, qty
                     FROM view_cartlist
                     WHERE id = ?
                 """;
         return jdbcTemplate.query(sql,
-                new BeanPropertyRowMapper<>(CartListResponse.class),
+                new BeanPropertyRowMapper<>(CartListResponseDTO.class),
                 cartItem.getId());
     }
 
     @Override
     // 장바구니 테이블에서 cid의 레코드 삭제
-    public int deleteItem(CartItem cartItem) {
+    public int deleteItem(CartItemDTO cartItem) {
         String sql = """
                     DELETE FROM cart
                     WHERE cid = ?

@@ -3,31 +3,44 @@ import { SearchForm } from '../components/commons/SearchForm.jsx';
 import { MenuList } from '../components/commons/MenuList.jsx';
 import { axiosData } from '../utils/fetchData.js';
 import { getSupport } from '../feature/support/SupportAPI.js'
+//-- 페이징 처리 추가
+import Pagination from 'rc-pagination';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'rc-pagination/assets/index.css';
 
 export function Support() {
     const [menus, setMenus] = useState([]);
     const [category, setCategory] = useState([]);
     const [list, setList] = useState([]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
+    const [pageSize, setPageSize] = useState(3);
+    const [type, setType] = useState('all');
+
     useEffect( () => {
         const fetch = async () => {
-            const jsonData = await getSupport("all");
-            setList(jsonData);
-            const data = await axiosData('/data/support.json');
-            setMenus(data.menus);
-            setCategory(data.category);
+            const data = {
+                "stype": stype,
+                "currentPage": currentPage,
+                "pageSize": pageSize
+            }
+
+            const pageList = await getSupport(data);
+            const jsonData = await axiosData('/data/support.json');
+            setMenus(jsonData.menus);
+            setCategory(jsonData.category);
+            setList(pageList.list);
+            setTotalCount(pageList.totalCount);
         }
         
         fetch();
-    },[])
+    },[type, currentPage]);
 
     // 필터
     const filterList = (type) => {
-        const filter = async (type) => {
-            const jsonData = await getSupport(type);
-            setList(jsonData);
-        }
-        filter(type);
+        setType(type);
+        setCurrentPage(1);
      };
 
     return (
@@ -56,7 +69,7 @@ export function Support() {
                             {
                                 list && list.map( (item, index) => 
                                 <tr>
-                                    <td>{index + 1}</td>
+                                    <td>{item.rowNumber}</td>
                                     <td>[{item.type}]</td>
                                     <td>{item.title}</td>
                                     <td>{item.rdate}</td>
@@ -67,7 +80,15 @@ export function Support() {
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colSpan="5">1 2 3 4 5 &gt;&gt; </td>
+                                <td colSpan={5}>
+                                    {/* 페이징 처리 출력 컴포넌트 */}
+                                    <Pagination
+                                      className="d-flex justify-content-center"
+                                      current = {currentPage}
+                                      total = {totalCount}
+                                      pageSize = {pageSize}
+                                      onChange = {(page) => setCurrentPage(page) }/>
+                                </td>
                             </tr>
                         </tfoot>
                     </table>

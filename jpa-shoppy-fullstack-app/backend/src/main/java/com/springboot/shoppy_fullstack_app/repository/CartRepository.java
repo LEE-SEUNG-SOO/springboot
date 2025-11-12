@@ -1,16 +1,16 @@
 package com.springboot.shoppy_fullstack_app.repository;
 
-import com.springboot.shoppy_fullstack_app.dto.CartItem;
-import com.springboot.shoppy_fullstack_app.dto.CartListResponse;
+import com.springboot.shoppy_fullstack_app.dto.CartItemDTO;
+import com.springboot.shoppy_fullstack_app.dto.CartListResponseDTO;
 
 import java.util.List;
 
 public interface CartRepository {
-    public int add(CartItem cartItem);
-    public CartItem checkCart(CartItem cartItem);
-    public int increaseQty(CartItem cartItem);
-    public int decreaseQty(CartItem cartItem);
-    public CartItem getCount(CartItem cartItem);
-    public List<CartListResponse> getCartList(CartItem cartItem);
-    public int deleteItem(CartItem cartItem);
+    public int add(CartItemDTO cartItem);
+    public CartItemDTO checkCart(CartItemDTO cartItem);
+    public int increaseQty(CartItemDTO cartItem);
+    public int decreaseQty(CartItemDTO cartItem);
+    public CartItemDTO getCount(CartItemDTO cartItem);
+    public List<CartListResponseDTO> getCartList(CartItemDTO cartItem);
+    public int deleteItem(CartItemDTO cartItem);
 }

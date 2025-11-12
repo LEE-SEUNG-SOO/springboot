@@ -1,8 +1,7 @@
 import { axiosPost } from "../../utils/fetchData.js";
 
-export const getSupport = async (type) => {
+export const getSupport = async (data) => {
     const url = "/support/list";
-    const supportData = { "type" : type }
-    const jsonData = await axiosPost(url, supportData);
+    const jsonData = await axiosPost(url, data);
     return jsonData;
 }

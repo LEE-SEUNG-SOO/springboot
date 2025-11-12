@@ -1,6 +1,6 @@
 package com.springboot.shoppy_fullstack_app.repository;
 
-import com.springboot.shoppy_fullstack_app.dto.Support;
+import com.springboot.shoppy_fullstack_app.dto.SupportDTO;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,21 +18,21 @@ public class JdbcTemplateSupportRepository implements SupportRepository{
     }
 
     @Override
-    public List<Support> findAll() {
+    public List<SupportDTO> findAll() {
         String sql = """
                     SELECT sid, stype as type, title, content, hits, rdate
                     FROM support
                 """;
-            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Support.class));
+            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(SupportDTO.class));
     }
 
     @Override
-    public List<Support> findByType(Support support) {
+    public List<SupportDTO> findAll(SupportDTO support) {
         String sql = """
                         SELECT sid, stype as type, title, content, hits, rdate
                         FROM support
                         WHERE stype = ?
                     """;
-            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Support.class), support.getType());
+            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(SupportDTO.class), support.getStype());
     }
 }

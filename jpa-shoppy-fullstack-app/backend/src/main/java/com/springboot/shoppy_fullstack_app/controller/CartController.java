@@ -1,7 +1,7 @@
 package com.springboot.shoppy_fullstack_app.controller;
 
-import com.springboot.shoppy_fullstack_app.dto.CartItem;
-import com.springboot.shoppy_fullstack_app.dto.CartListResponse;
+import com.springboot.shoppy_fullstack_app.dto.CartItemDTO;
+import com.springboot.shoppy_fullstack_app.dto.CartListResponseDTO;
 import com.springboot.shoppy_fullstack_app.service.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,27 +24,27 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public int add(@RequestBody CartItem cartItem){
+    public int add(@RequestBody CartItemDTO cartItem){
         return cartService.add(cartItem);
     }
 
     @PostMapping("/checkCart")
-    public CartItem checkCart(@RequestBody CartItem cartItem){
+    public CartItemDTO checkCart(@RequestBody CartItemDTO cartItem){
         return cartService.checkCart(cartItem);
     }
 
     @PostMapping("/updateQty")
-    public int updateQty(@RequestBody CartItem cartItem){
+    public int updateQty(@RequestBody CartItemDTO cartItem){
         return cartService.updateQty(cartItem);
     }
 
     @PostMapping("/count")
-    public CartItem count(@RequestBody CartItem cartItem){
+    public CartItemDTO count(@RequestBody CartItemDTO cartItem){
         return cartService.getCount(cartItem);
     }
 
     @PostMapping("/cartList")
-    public ResponseEntity<?> cartList(@RequestBody CartItem cartItem,
+    public ResponseEntity<?> cartList(@RequestBody CartItemDTO cartItem,
                                    HttpServletRequest request){
         ResponseEntity<?> response = null;
 
@@ -54,7 +54,7 @@ public class CartController {
         String ssid = session.getId();
 
         if(ssid != null && sid != null){ // 로그인 회원 확인
-            List<CartListResponse> list = cartService.getCartList(cartItem);
+            List<CartListResponseDTO> list = cartService.getCartList(cartItem);
             response = ResponseEntity.ok(list);
         } else {
             response = ResponseEntity.ok(Map.of("result", false));
@@ -64,7 +64,7 @@ public class CartController {
     }
 
     @PostMapping("/deleteItem")
-    public int deleteItem(@RequestBody CartItem cartItem){
+    public int deleteItem(@RequestBody CartItemDTO cartItem){
         return cartService.deleteItem(cartItem);
     }
 }

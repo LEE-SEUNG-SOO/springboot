@@ -101,6 +101,7 @@ from
 
 select * from product_detailinfo;
 
+SELECT * FROM product_return;
 -- 상품 Q&A 테이블
 CREATE TABLE product_qna(
 	qid				INT				AUTO_INCREMENT	PRIMARY KEY,
@@ -243,7 +244,7 @@ on c.pid = p.pid
 where c.id = "test";
 
 -- cartlist view
-create view view_cartlist
+create view view_cart_list
 as
 SELECT m.id, p.info, p.pid, c.cid, p.name, p.price, p.image, c.size, c.qty
 FROM member m, product p, cart c
@@ -251,10 +252,10 @@ WHERE m.id = c.id
 AND p.pid = c.pid
 ;
 
-select * from view_cartlist;
+select * from view_cart_list;
 
 -- view 삭제
-drop view view_cartlist;
+drop view view_cart_list;
 
 /*********************************************************************
 	주문 테이블 : orders
@@ -310,26 +311,10 @@ create table order_detail (
 		on delete cascade  on update cascade
 );
 
+select * from cart;
+
 show tables;
 desc order_detail;
+use candy;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select * from product;
