@@ -4,9 +4,9 @@ import { MenuList } from '../components/commons/MenuList.jsx';
 import { axiosData } from '../utils/fetchData.js';
 import { getSupport } from '../feature/support/SupportAPI.js'
 //-- 페이징 처리 추가
-import Pagination from 'rc-pagination';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'rc-pagination/assets/index.css';
+// import Pagination from 'rc-pagination';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'rc-pagination/assets/index.css';
 
 export function Support() {
     const [menus, setMenus] = useState([]);
@@ -20,18 +20,18 @@ export function Support() {
 
     useEffect( () => {
         const fetch = async () => {
-            const data = {
-                "stype": stype,
-                "currentPage": currentPage,
-                "pageSize": pageSize
-            }
+//             const data = {
+//                 "stype": stype,
+//                 "currentPage": currentPage,
+//                 "pageSize": pageSize
+//             }
 
-            const pageList = await getSupport(data);
+//             const pageList = await getSupport(data);
             const jsonData = await axiosData('/data/support.json');
             setMenus(jsonData.menus);
             setCategory(jsonData.category);
-            setList(pageList.list);
-            setTotalCount(pageList.totalCount);
+//             setList(pageList.list);
+//             setTotalCount(pageList.totalCount);
         }
         
         fetch();
@@ -80,15 +80,15 @@ export function Support() {
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colSpan={5}>
-                                    {/* 페이징 처리 출력 컴포넌트 */}
-                                    <Pagination
-                                      className="d-flex justify-content-center"
-                                      current = {currentPage}
-                                      total = {totalCount}
-                                      pageSize = {pageSize}
-                                      onChange = {(page) => setCurrentPage(page) }/>
-                                </td>
+{/*                                 <td colSpan={5}> */}
+{/*                                      */}{/* 페이징 처리 출력 컴포넌트 */}
+{/*                                     <Pagination */}
+{/*                                       className="d-flex justify-content-center" */}
+{/*                                       current = {currentPage} */}
+{/*                                       total = {totalCount} */}
+{/*                                       pageSize = {pageSize} */}
+{/*                                       onChange = {(page) => setCurrentPage(page) }/> */}
+{/*                                 </td> */}
                             </tr>
                         </tfoot>
                     </table>

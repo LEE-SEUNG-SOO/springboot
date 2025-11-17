@@ -21,6 +21,7 @@ export const getLogin = (formData, idRef, pwdRef, setText) => async (dispatch) =
         console.log("request : ", request);
         if(request.login) {
             dispatch(login({"userId":formData.id})); // 비동기
+//            dispatch(login({"userId":formData.id , "role":request.role[0].authority})); // 비동기
             // 장바구니 카운트 갯수 설정 함수 호출
             dispatch(setCount(formData.id)); // 비동기
 

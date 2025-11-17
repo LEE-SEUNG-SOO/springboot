@@ -15,6 +15,7 @@ import { CartProvider } from './context/CartContext.js';
 import { ProtectedPageRoute } from './pages/ProtectedPageRoute.js';
 import { PayResult } from './pages/PayResult.jsx';
 import { createCsrfToken } from './feature/csrf/manageCsrfToken.js';
+import { shoppyAdmin } from './pages/Admin.jsx';
 
 import './styles/shoppy.css';
 import './styles/commons.css';
@@ -46,6 +47,7 @@ export default function App() {
              <Route path='/products/:pid' element={<ProductDetail />} />
              <Route path='/payResult' element={<PayResult/>} />
              <Route path='/checkout' element={<ProtectedPageRoute><CheckoutInfo /></ProtectedPageRoute>}/>
+             <Route path="/shoppy/admin" element={<shoppyAdmin />} />
            </Route>
          </Routes>
        </BrowserRouter>
